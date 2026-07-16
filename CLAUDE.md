@@ -27,14 +27,14 @@ Palette (nomi ufficiali, uso vincolato — non aggiungere colori non elencati qu
 
 Colori semantici per lo stato ombrellone (separati dai colori di brand): verde = libero, ocra = prenotato, rosso/terracotta scuro = occupato.
 
-Logo: ombrellone visto dall'alto, 8 spicchi alternati (Terracotta Vela / Sabbia), perno centrale Ocra Sole, su fondo Notte Marina. Sorgenti vettoriali in `Resources/AppIcon/appicon.svg` (sfondo), `appiconfg.svg` (spicchi), `Resources/Splash/splash.svg` (splash screen).
+Logo: ombrellone visto dall'alto, 8 spicchi alternati (Terracotta Vela / Sabbia), perno centrale Ocra Sole, su fondo Notte Marina. Sorgenti vettoriali in `Resources/AppIcon/appicon.svg` (sfondo), `appiconfg.svg` (spicchi), `Resources/Splash/splash.svg` (splash screen, logo + wordmark "OMBRA" in Rockwell sotto il logo).
 
 Font: Rockwell per display/wordmark, Trebuchet MS per il corpo dell'interfaccia, Consolas per numeri/codici tabulari (font di sistema, nessuna dipendenza esterna).
 
 ## Stato build
 
 - `dotnet build -f net10.0-windows10.0.19041.0` → OK, 0 errori
-- `dotnet build -f net10.0-android` → **bloccato**: disallineamento tra la feature band dell'SDK (10.0.301 → band 300) e i workload MAUI registrati (band 10.0.100, installati via Visual Studio). `dotnet workload restore` fallisce nello scaricare i manifest. Da risolvere quando serve testare su Android — non ancora affrontato.
+- Android → testato su emulatore (avviato da Visual Studio) il 2026-07-16: funziona correttamente, splash screen incluso. In precedenza `dotnet build -f net10.0-android` da riga di comando falliva per disallineamento tra la feature band dell'SDK (10.0.301 → band 300) e i workload MAUI registrati (band 10.0.100); non ancora riverificato se il problema persiste per i build da CLI.
 
 ## Prossimi passi
 
