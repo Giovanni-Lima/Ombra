@@ -2,4 +2,6 @@
   <Project Path="Ombra.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
+  <Project Path="Ombra.Core\Ombra.Core.csproj" />
+  <Project Path="Ombra.Infrastructure\Ombra.Infrastructure.csproj" />
 </Solution>

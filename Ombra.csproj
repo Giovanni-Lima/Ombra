@@ -45,6 +45,10 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+
+		<!-- Ombra.Core and Ombra.Infrastructure are separate projects nested in this folder; exclude their trees from this
+		     project's default item globs so their files (and generated obj/ output) aren't compiled twice. -->
+		<DefaultItemExcludes>$(DefaultItemExcludes);Ombra.Core\**;Ombra.Infrastructure\**</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -68,6 +72,13 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<!-- Fornisce i binari nativi di SQLite per ogni piattaforma; sqlite-net-pcl (in Ombra.Core/Ombra.Infrastructure) fornisce solo l'API gestita. -->
+		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.10" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="Ombra.Core\Ombra.Core.csproj" />
+	  <ProjectReference Include="Ombra.Infrastructure\Ombra.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

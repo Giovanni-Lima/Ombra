@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Solo per gli attributi [Table]/[PrimaryKey]/[AutoIncrement] sui modelli: nessuna dipendenza da runtime SQLite nativo. -->
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <!-- Pin esplicito: sqlite-net-pcl porta transitivamente una versione con CVE nota (GHSA-2m69-gcr7-jv3q); allineata alla versione fissata in Ombra.csproj. -->
+    <PackageReference Include="SQLitePCLRaw.core" Version="2.1.10" />
+  </ItemGroup>
+
+</Project>
