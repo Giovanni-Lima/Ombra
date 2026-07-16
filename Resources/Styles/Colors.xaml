@@ -27,6 +27,19 @@
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
 
+    <!-- Palette di brand Ombra (vedi CLAUDE.md) -->
+    <Color x:Key="TealProfondo">#0E3D3B</Color>
+    <Color x:Key="NotteMarina">#0A2624</Color>
+    <Color x:Key="TerracottaVela">#D9552E</Color>
+    <Color x:Key="OcraSole">#E3A23C</Color>
+    <Color x:Key="Sabbia">#F1E4CC</Color>
+    <Color x:Key="GrigioScoglio">#6E7A76</Color>
+
+    <!-- Colori semantici per stato ombrellone, separati dai colori di brand -->
+    <Color x:Key="StatoLibero">#3B6B4A</Color>
+    <Color x:Key="StatoPrenotato">#E3A23C</Color>
+    <Color x:Key="StatoOccupato">#A63A22</Color>
+
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>

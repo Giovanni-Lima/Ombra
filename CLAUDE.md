@@ -38,6 +38,13 @@ Font: Rockwell per display/wordmark, Trebuchet MS per il corpo dell'interfaccia,
 
 - `dotnet build Ombra.csproj -f net10.0-windows10.0.19041.0` → OK, 0 errori. **Specificare sempre `Ombra.csproj`**: da quando esiste anche `Ombra.Core` nella `.slnx`, `dotnet build -f <TFM>` senza indicare il progetto risolve la soluzione e applica quel target framework a tutti i progetti in essa, facendo fallire `Ombra.Core` (che ha solo `net10.0`).
 - Android → testato su emulatore (avviato da Visual Studio) il 2026-07-16: funziona correttamente, splash screen incluso. In precedenza `dotnet build -f net10.0-android` da riga di comando falliva per disallineamento tra la feature band dell'SDK (10.0.301 → band 300) e i workload MAUI registrati (band 10.0.100); non ancora riverificato se il problema persiste per i build da CLI.
+- Windows → testato lanciando l'exe compilato (`bin\Debug\net10.0-windows10.0.19041.0\win-x64\Ombra.exe`) il 2026-07-16: funziona correttamente dopo i due fix sotto.
+
+### Gotcha note del SDK/librerie
+
+- **`MauiXamlInflator=SourceGen` + `OnIdiom`/`OnPlatform` come elemento XAML annidato su proprietà di tipo interfaccia** (es. `CollectionView.ItemsLayout`, tipo `IItemsLayout`): il source generator non chiama `ProvideValue` sulla markup extension ma prova a castare l'oggetto `OnIdiom<T>` stesso al tipo della proprietà, causando un `InvalidCastException` a runtime (non in fase di build). Soluzione applicata: impostare queste proprietà da code-behind in base a `DeviceInfo.Idiom` invece che in XAML (vedi `MainPage.xaml.cs`).
+- **`sqlite-net-pcl` 1.9.172 non supporta `System.DateOnly`** (`NotSupportedException: Don't know about System.DateOnly` a runtime, in fase di `CreateTableAsync`): usare `DateTime` nei modelli persistiti.
+- **`OmbraDatabase.GetConnectionAsync()`**: la prima versione usava `Task.ContinueWith` per attendere l'inizializzazione, che ingoiava silenziosamente le eccezioni dell'inizializzazione (tabelle/seed), lasciando l'app apparentemente funzionante ma con dati vuoti. Ora usa `await` diretto per propagare correttamente gli errori.
 
 ### Vulnerabilità nota (accettata) — SQLitePCLRaw
 

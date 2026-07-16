@@ -1,23 +1,39 @@
-﻿namespace Ombra;
+using Ombra.ViewModels;
+
+namespace Ombra;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+	private readonly MainViewModel _viewModel;
 
-	public MainPage()
+	public MainPage(MainViewModel viewModel)
 	{
 		InitializeComponent();
+		_viewModel = viewModel;
+		BindingContext = _viewModel;
+
+		// Impostato da code-behind invece che con <OnIdiom> in XAML: il MauiXamlInflator=SourceGen
+		// di questo SDK non risolve correttamente OnIdiom<IItemsLayout> come elemento XAML annidato
+		// (prova a castare l'oggetto OnIdiom stesso a IItemsLayout invece di chiamarne ProvideValue).
+		var span = DeviceInfo.Idiom == DeviceIdiom.Tablet ? 8 : 4;
+		var spacing = DeviceInfo.Idiom == DeviceIdiom.Tablet ? 12 : 8;
+		OmbrelloniCollectionView.ItemsLayout = new GridItemsLayout(span, ItemsLayoutOrientation.Vertical)
+		{
+			HorizontalItemSpacing = spacing,
+			VerticalItemSpacing = spacing
+		};
 	}
 
-	private void OnCounterClicked(object? sender, EventArgs e)
+	protected override async void OnAppearing()
 	{
-		count++;
-
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
-
-		SemanticScreenReader.Announce(CounterBtn.Text);
+		base.OnAppearing();
+		try
+		{
+			await _viewModel.LoadAsync();
+		}
+		catch (Exception ex)
+		{
+			await DisplayAlert("Errore caricamento dati", ex.Message, "OK");
+		}
 	}
 }

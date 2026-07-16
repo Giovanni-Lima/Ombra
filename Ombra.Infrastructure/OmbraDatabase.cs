@@ -14,10 +14,11 @@ public class OmbraDatabase
         _dbPath = dbPath;
     }
 
-    public Task<SQLiteAsyncConnection> GetConnectionAsync()
+    public async Task<SQLiteAsyncConnection> GetConnectionAsync()
     {
         _initialization ??= InitializeAsync();
-        return _initialization.ContinueWith(_ => _connection!);
+        await _initialization;
+        return _connection!;
     }
 
     private async Task InitializeAsync()

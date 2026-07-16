@@ -74,6 +74,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 		<!-- Fornisce i binari nativi di SQLite per ogni piattaforma; sqlite-net-pcl (in Ombra.Core/Ombra.Infrastructure) fornisce solo l'API gestita. -->
 		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.10" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 	</ItemGroup>
 
 	<ItemGroup>
