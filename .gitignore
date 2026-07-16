@@ -1,0 +1,34 @@
+## .NET / Visual Studio
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+## Rider / JetBrains
+.idea/
+*.sln.iml
+
+## VS Code
+.vscode/
+
+## MAUI / Mobile build artifacts
+*.apk
+*.aab
+*.ipa
+*.appx
+*.appxbundle
+*.appxupload
+*.msix
+*.msixbundle
+
+## Publish output
+publish/
+PublishProfiles/*.user
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Logs
+*.log
